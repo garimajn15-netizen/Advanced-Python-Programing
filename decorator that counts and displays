@@ -1,0 +1,23 @@
+# Decorator to count function calls
+def call_counter(func):
+    count = 0
+
+    def wrapper():
+        nonlocal count
+        count += 1
+        print(f"{func.__name__}() has been called {count} time(s).")
+        return func()
+
+    return wrapper
+
+
+# Function to be decorated
+@call_counter
+def greet():
+    print("Hello! Welcome to Advanced Python.")
+
+
+# Main Program
+greet()
+greet()
+greet()
