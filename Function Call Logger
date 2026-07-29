@@ -1,0 +1,20 @@
+from datetime import datetime
+
+# Decorator to log function calls
+def log_function_call(func):
+    def wrapper():
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        print(f"Function Name : {func.__name__}")
+        print(f"Called At     : {current_time}")
+        return func()
+    return wrapper
+
+
+# Function to be decorated
+@log_function_call
+def greet():
+    print("Hello! Welcome to Advanced Python.")
+
+
+# Main Program
+greet()
