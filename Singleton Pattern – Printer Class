@@ -1,0 +1,31 @@
+# Singleton Pattern - Printer
+
+class Printer:
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            print("Creating Printer Object...\n")
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
+    def print_document(self, user, document):
+        print(f"{user} is printing: {document}")
+
+
+# Driver Code
+printer1 = Printer()
+printer2 = Printer()
+printer3 = Printer()
+
+printer1.print_document("Alice", "Project Report.pdf")
+printer2.print_document("Bob", "Assignment.docx")
+printer3.print_document("Charlie", "Resume.pdf")
+
+print("\nObject IDs:")
+print(id(printer1))
+print(id(printer2))
+print(id(printer3))
+
+if printer1 is printer2 is printer3:
+    print("\nOnly one Printer object exists (Singleton Verified).")
