@@ -1,0 +1,67 @@
+from abc import ABC, abstractmethod
+
+
+# Observer Interface
+class DisplayDevice(ABC):
+
+    @abstractmethod
+    def update(self, temperature):
+        pass
+
+
+# Concrete Observers
+class MobileDisplay(DisplayDevice):
+    def update(self, temperature):
+        print(f"📱 Mobile Display: Temperature = {temperature}°C")
+
+
+class TVDisplay(DisplayDevice):
+    def update(self, temperature):
+        print(f"📺 TV Display: Temperature = {temperature}°C")
+
+
+class LEDDisplay(DisplayDevice):
+    def update(self, temperature):
+        print(f"💡 LED Display: Temperature = {temperature}°C")
+
+
+# Subject
+class WeatherStation:
+
+    def __init__(self):
+        self.observers = []
+        self.temperature = None
+
+    def register(self, observer):
+        self.observers.append(observer)
+
+    def unregister(self, observer):
+        self.observers.remove(observer)
+
+    def notify(self):
+        for observer in self.observers:
+            observer.update(self.temperature)
+
+    def set_temperature(self, temperature):
+        print(f"\nWeather Station: Temperature changed to {temperature}°C")
+        self.temperature = temperature
+        self.notify()
+
+
+# Driver Code
+station = WeatherStation()
+
+mobile = MobileDisplay()
+tv = TVDisplay()
+led = LEDDisplay()
+
+station.register(mobile)
+station.register(tv)
+station.register(led)
+
+station.set_temperature(30)
+station.set_temperature(35)
+
+station.unregister(tv)
+
+station.set_temperature(28)
