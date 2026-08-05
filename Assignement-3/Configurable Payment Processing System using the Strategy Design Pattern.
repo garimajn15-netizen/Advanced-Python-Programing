@@ -1,0 +1,74 @@
+from abc import ABC, abstractmethod
+
+# Strategy Interface
+class PaymentStrategy(ABC):
+    @abstractmethod
+    def pay(self, amount):
+        pass
+
+
+# Concrete Strategy 1
+class CreditCardPayment(PaymentStrategy):
+    def pay(self, amount):
+        print(f"₹{amount} paid successfully using Credit Card.")
+
+
+# Concrete Strategy 2
+class DebitCardPayment(PaymentStrategy):
+    def pay(self, amount):
+        print(f"₹{amount} paid successfully using Debit Card.")
+
+
+# Concrete Strategy 3
+class UpiPayment(PaymentStrategy):
+    def pay(self, amount):
+        print(f"₹{amount} paid successfully using UPI.")
+
+
+# Concrete Strategy 4
+class NetBankingPayment(PaymentStrategy):
+    def pay(self, amount):
+        print(f"₹{amount} paid successfully using Net Banking.")
+
+
+# Context Class
+class PaymentProcessor:
+    def __init__(self, strategy=None):
+        self.strategy = strategy
+
+    def set_strategy(self, strategy):
+        self.strategy = strategy
+
+    def process_payment(self, amount):
+        if self.strategy is None:
+            print("No payment method selected!")
+        else:
+            self.strategy.pay(amount)
+
+
+# Driver Code
+processor = PaymentProcessor()
+
+amount = float(input("Enter payment amount: "))
+
+print("\nChoose Payment Method")
+print("1. Credit Card")
+print("2. Debit Card")
+print("3. UPI")
+print("4. Net Banking")
+
+choice = int(input("Enter your choice: "))
+
+if choice == 1:
+    processor.set_strategy(CreditCardPayment())
+elif choice == 2:
+    processor.set_strategy(DebitCardPayment())
+elif choice == 3:
+    processor.set_strategy(UpiPayment())
+elif choice == 4:
+    processor.set_strategy(NetBankingPayment())
+else:
+    print("Invalid choice!")
+    exit()
+
+processor.process_payment(amount)
