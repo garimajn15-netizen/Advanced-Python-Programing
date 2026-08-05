@@ -1,0 +1,53 @@
+from abc import ABC, abstractmethod
+
+
+# Abstract Product
+class Fruit(ABC):
+
+    @abstractmethod
+    def display(self):
+        pass
+
+
+# Concrete Products
+class Apple(Fruit):
+    def display(self):
+        print("Fruit: Apple")
+
+
+class Mango(Fruit):
+    def display(self):
+        print("Fruit: Mango")
+
+
+class Orange(Fruit):
+    def display(self):
+        print("Fruit: Orange")
+
+
+# Factory
+class FruitFactory:
+
+    @staticmethod
+    def get_fruit(fruit_name):
+        fruit_name = fruit_name.lower()
+
+        if fruit_name == "apple":
+            return Apple()
+
+        elif fruit_name == "mango":
+            return Mango()
+
+        elif fruit_name == "orange":
+            return Orange()
+
+        else:
+            raise ValueError("Invalid Fruit")
+
+
+# Driver Code
+fruits = ["Apple", "Mango", "Orange"]
+
+for item in fruits:
+    fruit = FruitFactory.get_fruit(item)
+    fruit.display()
