@@ -1,0 +1,54 @@
+def longest_common_subsequence(seq1, seq2):
+    m = len(seq1)
+    n = len(seq2)
+
+    # DP table
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+
+    # Build the DP table
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+
+            if seq1[i - 1] == seq2[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1] + 1
+
+            else:
+                dp[i][j] = max(dp[i - 1][j],
+                               dp[i][j - 1])
+
+    # Backtracking to find the actual LCS
+    i, j = m, n
+    lcs = []
+
+    while i > 0 and j > 0:
+
+        if seq1[i - 1] == seq2[j - 1]:
+            lcs.append(seq1[i - 1])
+            i -= 1
+            j -= 1
+
+        elif dp[i - 1][j] >= dp[i][j - 1]:
+            i -= 1
+
+        else:
+            j -= 1
+
+    # Reverse because we constructed it backwards
+    lcs.reverse()
+
+    return dp[m][n], lcs
+
+
+# Main program
+sequence1 = input("Enter first sequence: ")
+sequence2 = input("Enter second sequence: ")
+
+length, subsequence = longest_common_subsequence(
+    sequence1, sequence2
+)
+
+print("\n----- LCS RESULT -----")
+print("First Sequence  :", sequence1)
+print("Second Sequence :", sequence2)
+print("LCS             :", "".join(subsequence))
+print("LCS Length      :", length)
