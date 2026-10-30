@@ -1,0 +1,24 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("student.csv")
+
+print(df.head())
+print(df.info())
+
+print("Average:", df["Marks"].mean())
+print("Maximum:", df["Marks"].max())
+print("Minimum:", df["Marks"].min())                
+
+print(df[df["Marks"] > 75])
+
+df.plot(x="Name", y="Marks", kind="bar")
+plt.show()
+
+df["Marks"].plot(kind="hist")
+plt.show()
+
+plt.scatter(df["Study_Hours"], df["Marks"])
+plt.xlabel("Study Hours")
+plt.ylabel("Marks")
+plt.show()
