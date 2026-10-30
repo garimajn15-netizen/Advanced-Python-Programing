@@ -1,0 +1,17 @@
+
+import re
+
+# Read input file
+with open("input.txt", "r") as file:
+    data = file.read()
+
+# Extract all URLs using regex
+urls = re.findall(r'https?://[^\s]+', data)
+
+# Save URLs into output file
+with open("output.txt", "w") as file:
+    for url in urls:
+        file.write(url + "\n")
+
+print("URLs extracted successfully!")
+print(urls)
